@@ -6,6 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { LoginComponent } from './login/login.component';
+import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
+import { RouterSerializer } from './ngrx/store/router.serializer';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,12 @@ import { LoginComponent } from './login/login.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot({
+      router: routerReducer
+    }),
+    StoreRouterConnectingModule.forRoot({
+      serializer: RouterSerializer
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

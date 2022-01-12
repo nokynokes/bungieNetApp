@@ -16,8 +16,12 @@ export class App {
       this.app.get("/token/:code", (req: Request, res: Response) => {
         new Connection().reqestToken(req.params.code)
           .then((vaule) => {
-            console.log(vaule.data);
-            return res.status(200).json(vaule.data);
+            const today = new Date();
+            const expire = new Date().setSeconds(today.getSeconds() + vaule.data.expires_in);
+            return res.status(200).json({
+                ...vaule.data,
+                expires_in: expire,
+            });
           })
           .catch((err) => {
 
@@ -27,6 +31,7 @@ export class App {
             
       });
 
+      this.app.use("/api", router);
       this.app.use(express.static(path.join(__dirname, "../../ui/dist")));
       this.app.get("/*", (req: Request, res: Response) => {
           res.sendFile(path.join(__dirname, "../../ui/dist/index.html"))

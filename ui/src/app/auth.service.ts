@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Store } from '@ngrx/store';
-import { Observable, tap } from 'rxjs';
-import { AccessToken } from './ngrx/types';
+import { tap } from 'rxjs';
+import { AccessToken, TokenState } from './ngrx/types';
+import { defaultTokenState } from './ngrx/store/app.store';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private stateKey: string = "state"
+  private tokenStateKey: string = "tokenState"
 
   constructor(private _http: HttpClient, private _store: Store) {}
 
@@ -17,19 +20,33 @@ export class AuthService {
     const bytes = Array.from(buffer).slice(0,8);
     const encoded = btoa(bytes.toString());
     
-    localStorage.setItem("state", encoded);
+    localStorage.setItem(this.stateKey, encoded);
 
     return encoded;
   }
 
   getState() {
-    return localStorage.getItem("state");
+    return localStorage.getItem(this.stateKey);
   }
 
-  requestToken(code: string): Observable<any>{
-    return this._http.get(`/token/${code}`).pipe(
-      tap((res: any) => {
-        localStorage.setItem("token", res.access_token);
+  getTokenState(): TokenState {
+    if(localStorage.getItem(this.tokenStateKey)) {
+      const state = JSON.parse(localStorage.getItem(this.tokenStateKey) as string) as AccessToken;
+      return {
+        accessToken: state.access_token,
+        tokenType: state.token_type,
+        expiration: state.expires_in,
+        membershipId: state.membership_id,
+      };
+    } else {
+      return defaultTokenState
+    }
+  }
+
+  requestToken(code: string){
+    return this._http.get<AccessToken>(`/token/${code}`).pipe(
+      tap((res) => {
+        localStorage.setItem(this.tokenStateKey, JSON.stringify(res));
       })
     )
   }

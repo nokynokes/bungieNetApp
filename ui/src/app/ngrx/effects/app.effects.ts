@@ -17,7 +17,7 @@ export class AppEffects {
                             accessToken: res.access_token,
                             membershipId: res.membership_id,
                             tokenType: res.token_type,
-                            expiration: res.expires_in
+                            expiration: res.expires_in,
                         })
                     })
                 )

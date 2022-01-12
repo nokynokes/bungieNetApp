@@ -1,0 +1,10 @@
+<div>
+    Total Time Played: {{ totalTimePlayed }}
+</div>
+
+<div *ngFor="let character of characters">
+    <img [src]="character.emblemPath"> 
+    <div> {{ character.gender }} {{ character.race }} {{ character.class}} </div>
+    <div> Light Level: {{ character.lightLevel }}</div>
+    <div> Time Played: {{ character.hoursPlayedTotal }} H {{ character.minutesPlayedTotal}} M</div>
+</div>

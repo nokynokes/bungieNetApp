@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+
+app-login {
+    background-image: url("assets/NewBlue.jpg");
+    background-size: cover;
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Cabin');

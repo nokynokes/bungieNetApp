@@ -10,7 +10,7 @@ import { AppState } from '../ngrx/types';
 })
 export class LoginComponent implements OnInit {
   private oauthURL: string = "https://www.bungie.net/en/oauth/authorize"
-  private clientId: string = ""
+  private clientId: string = "38931"
   constructor(private _authService: AuthService, private _store: Store<AppState>) { }
 
   ngOnInit(): void {}

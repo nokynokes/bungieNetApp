@@ -1,0 +1,17 @@
+
+div.login {
+    margin: auto;
+    width: 15%;
+    padding: 10px;
+    margin-top: 600px;
+    text-align: center;
+    h1 {
+        font-family: 'Cabin';
+        color: cornsilk;
+        padding-bottom: 5px;
+        &:hover {
+            cursor: pointer;
+            box-shadow: 0px 0px 15px 1px white;
+        }
+    }
+}

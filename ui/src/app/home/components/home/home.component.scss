@@ -1,0 +1,31 @@
+*{
+    height: 100%;
+    width: 100%;
+    display: block;
+}
+
+
+div.page{
+    height: 100vh;
+    display: grid;
+
+    grid-template-rows: [header-start] 52px [header-end content-start] auto [content-end];
+    app-header {
+        position: fixed;
+        top: 0;
+        width: 100vw;
+        height: 52px;
+    }
+}
+
+app-header {
+    grid-area: header;
+    font-family: 'Cabin';
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    z-index: 89;
+}
+
+
+

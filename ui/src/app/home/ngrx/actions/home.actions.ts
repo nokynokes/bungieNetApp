@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { Character } from "../types";
+import { Character, DestinyMembership } from "../types";
 
 export enum HomeActions {
     GetDestinyId = "[Home] Get Destiny Id",
@@ -12,7 +12,7 @@ export const getDestinyId = createAction(
 
 export const getDestinyIdSuccess = createAction(
     HomeActions.GetDestinyIdSuccess,
-    props<{destinyId: string, icon: string, characters: Character[], totalTimePlayed: string}>()
+    props<{destinyMembership: DestinyMembership, characters: Character[]}>()
 )
 
 

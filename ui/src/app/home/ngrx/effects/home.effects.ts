@@ -6,7 +6,7 @@ import { AppState, TokenState } from "src/app/ngrx/types";
 import { HomeService } from "../../home.service";
 import { getDestinyId, getDestinyIdSuccess } from "../actions/home.actions";
 import { getAccessTokenState } from "src/app/ngrx/selectors/app.selectors";
-import { Character } from "../types";
+import { Character, DestinyMembership } from "../types";
 
 @Injectable({providedIn: "root"})
 export class HomeEffects {
@@ -19,10 +19,8 @@ export class HomeEffects {
                 return this._homeService.getDestinyMembershipId(state.membershipId).pipe(
                     map((res) => {
                         return getDestinyIdSuccess({
-                            destinyId: res.membershipId,
-                            icon: res.icon,
+                            destinyMembership: res.destinyMembership as DestinyMembership,
                             characters: res.characters as Character[],
-                            totalTimePlayed: res.totalTime,
                         })
                     })
                 )

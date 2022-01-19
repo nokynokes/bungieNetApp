@@ -19,6 +19,15 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._store.pipe(
+      takeWhile(() => this.alive),
+      select(getAccessTokenState)
+    ).subscribe((state) => {
+      if(!!state.accessToken){
+        this._router.navigate(["/home/profile"])
+      }
+    });
+
+    this._store.pipe(
         takeWhile(() => this.alive), 
         select(getQueryParamMap)
       ).subscribe((queryParams) => {
@@ -35,17 +44,6 @@ export class AuthComponent implements OnInit, OnDestroy {
         } else {
           //errorHandle 
         }
-    })
-
-    this._store.pipe(
-      takeWhile(() => this.alive),
-      select(getAccessTokenState)
-    ).subscribe((state) => {
-      console.log("gura!!!");
-      console.log(state);
-      if(state.accessToken){
-        this._router.navigate(["/home"])
-      }
     })
   }
 

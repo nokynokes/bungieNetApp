@@ -11,10 +11,9 @@ import { Character } from '../../ngrx/types';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-  iconPath: string = "https://www.bungie.net";
+  iconPath: string = "";
   destinyId: string = "";
   characters: Character[] = [];
-  totalTimePlayed: string = "";
   private alive: boolean = true;
   constructor(private _store: Store<AppState>) { }
 
@@ -30,23 +29,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
       takeWhile(() => this.alive),
       select(getDestinyIcon),
     ).subscribe((icon) => {
-      this.iconPath += icon;
+      this.iconPath = icon;
     });
 
     this._store.pipe(
       takeWhile(() => this.alive),
       select(getCharacterData),
     ).subscribe((characters) => {
-      console.log(characters);
       this.characters = characters;
     });
-
-    this._store.pipe(
-      takeWhile(() => this.alive),
-      select(getTotalTimePlayed)
-    ).subscribe((total) => {
-      this.totalTimePlayed = total;
-    })
   }
 
   ngOnDestroy(): void {

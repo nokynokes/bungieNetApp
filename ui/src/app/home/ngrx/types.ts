@@ -12,6 +12,12 @@ export interface Character {
 
 export interface HomeState {
     characters: Character[],
-    destinyId: string,
+    destinyMembership: DestinyMembership
+}
+
+export interface DestinyMembership {
     icon: string,
+    destinyId: string,
+    globalDisplayName: string,
+    globalDisplayNameCode: string,
 }

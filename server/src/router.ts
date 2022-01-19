@@ -64,23 +64,24 @@ class Router {
         this.router.get("/membershipIds/:id/:type", (req: Request, res: Response) => {
             const id = req.params.id;
             const type = req.params.type;
-            let destinyId = "";
-            let iconPath = "";
+            let destinyId = "", iconPath = "", bungieGlobalDisplayName = "", bungieGlobalDisplayNameCode = "";
+
             this.bungieGetRequest(`/User/GetMembershipsById/${id}/${type}`)
               .then((axiosResponse) => {
-                const destinyMemberships = axiosResponse.data.Response.destinyMemberships;
-                iconPath = destinyMemberships[0].iconPath;
-                destinyId = destinyMemberships[0].membershipId;
-
+                const destinyMembership = axiosResponse.data.Response.destinyMemberships[0];
+                iconPath = `https://www.bungie.net${destinyMembership.iconPath}`;
+                destinyId = destinyMembership.membershipId;
+                bungieGlobalDisplayName = destinyMembership.bungieGlobalDisplayName;
+                bungieGlobalDisplayNameCode = destinyMembership.bungieGlobalDisplayNameCode
                 return this.bungieGetRequest(`/Destiny2/${type}/Profile/${destinyId}/?components=200`)
               })
               .then((axiosResponse) => {
                 const characters = axiosResponse.data.Response.characters.data;
                 let characterData = [];
-                let totalMinutesAllChars = 0
+
                 for(const charId in characters){
                     const data = characters[charId];
-                    totalMinutesAllChars += data.minutesPlayedTotal;
+
                     const totalHours = Math.floor(data.minutesPlayedTotal / 60);
                     const totalMinutes = totalHours % 60;
                     characterData.push({
@@ -95,7 +96,16 @@ class Router {
                         hoursPlayedTotal: totalHours,
                     });
                 }
-                return res.status(200).json({characters: characterData, membershipId: destinyId, icon: iconPath});
+
+                return res.status(200).json({
+                    characters: characterData,
+                    destinyMembership: {
+                        icon: iconPath,
+                        destinyId: destinyId,
+                        globalDisplayName: bungieGlobalDisplayName,
+                        globalDisplayNameCode: bungieGlobalDisplayNameCode,
+                    }
+                });
             })
         })
     }

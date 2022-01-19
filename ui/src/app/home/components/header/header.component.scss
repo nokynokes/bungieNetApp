@@ -1,0 +1,19 @@
+div.name {
+    padding-top: 15px;
+    padding-left: 22px;
+    flex-grow: 1;
+    justify-content: flex-start;
+
+    span {
+        font-size: 18px;
+        letter-spacing: 2px;
+        font-weight: 700;
+        color: blanchedalmond;
+    }
+}
+
+:focus {
+    outline-style: none;
+    box-shadow: none;
+    border-color: transparent;
+}

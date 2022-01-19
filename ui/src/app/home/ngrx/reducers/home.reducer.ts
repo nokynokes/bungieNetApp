@@ -5,12 +5,9 @@ import { defaultHomeState } from "../store/home.store";
 export const homeReducer = createReducer(
     defaultHomeState,
     on(getDestinyIdSuccess, (state, payload) => {
-        console.log(payload.icon);
         return { ...state,
-            destinyId: payload.destinyId,
-            icon: payload.icon,
+            destinyMembership: payload.destinyMembership,
             characters: payload.characters,
-            totalTimePlayed: payload.totalTimePlayed,
         }
     })
 )

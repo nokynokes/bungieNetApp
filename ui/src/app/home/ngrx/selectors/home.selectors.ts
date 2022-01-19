@@ -11,12 +11,12 @@ export const isCharacterDataLoaded = createSelector(
 
 export const getDestinyInfo = createSelector(
     homeSelector,
-    (state) => state.destinyId
+    (state) => state.destinyMembership.destinyId
 );
 
 export const getDestinyIcon = createSelector(
     homeSelector,
-    (state) => state.icon
+    (state) => state.destinyMembership.icon
 );
 
 export const getCharacterData = createSelector(
@@ -41,3 +41,8 @@ export const getTotalTimePlayed = createSelector(
         return `${totalHours} hours ${totalMinutes} mins`
     }
 );
+
+export const getBungieDisplayName = createSelector(
+    homeSelector,
+    (state) => `${state.destinyMembership.globalDisplayName}#${state.destinyMembership.globalDisplayNameCode}`
+)

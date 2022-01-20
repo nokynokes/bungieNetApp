@@ -8,6 +8,7 @@ export interface Character {
     emblemBackgroundPath: string,
     minutesPlayedTotal: number,
     hoursPlayedTotal: number,
+    stats: Stats,
 }
 
 export interface HomeState {
@@ -20,4 +21,13 @@ export interface DestinyMembership {
     destinyId: string,
     globalDisplayName: string,
     globalDisplayNameCode: string,
+}
+
+export interface Stats {
+    mobility: number;
+    resilience: number;
+    recovery: number;
+    discipline: number 
+    intellect: number;
+    strength: number;
 }

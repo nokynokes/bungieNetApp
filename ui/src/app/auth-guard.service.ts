@@ -14,7 +14,7 @@ export class AuthGuardService implements CanActivate{
     this.isAuthenticated = this._store.pipe(
       select(getAccessTokenState),
       map(({ accessToken, expiration}) => {
-        if(accessToken) {
+        if(!!accessToken) {
           const today = new Date();
           const expire = new Date(expiration);
 

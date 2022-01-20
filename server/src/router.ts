@@ -1,6 +1,7 @@
 import axios from "axios";
 import * as express from "express";
 import { Request, Response, NextFunction } from "express";
+import { Stats } from "./models/character.stats";
 
 class Router {
     public router: express.Router;
@@ -60,6 +61,16 @@ class Router {
         }
     }
 
+    private getStats(data: {[key: string]: number}): Stats{
+        return {
+            mobility: data["2996146975"],
+            resilience: data["392767087"],
+            recovery: data["1943323491"],
+            discipline: data["1735777505"],
+            intellect: data["144602215"],
+            strength: data["4244567218"]
+        };
+    }
     private configRoutes(): void {
         this.router.get("/membershipIds/:id/:type", (req: Request, res: Response) => {
             const id = req.params.id;
@@ -91,9 +102,10 @@ class Router {
                         class: this.getClass(data.classType),
                         gender: this.getGender(data.genderType),
                         emblemPath: "https://bungie.net" + data.emblemPath,
-                        emblemBackgroudPath: "https://bungie.net" + data.emblemBackgroundPath,
+                        emblemBackgroundPath: "https://bungie.net" + data.emblemBackgroundPath,
                         minutesPlayedTotal: totalMinutes,
                         hoursPlayedTotal: totalHours,
+                        stats: this.getStats(data.stats),
                     });
                 }
 

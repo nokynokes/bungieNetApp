@@ -1,8 +1,16 @@
 <div class="gridArea">
-    <div *ngFor="let character of characters">
-        <img [src]="character.emblemPath"> 
+    <div *ngFor="let character of characters" class="character">
+        <img class="emblem" [src]="character.emblemBackgroundPath"> 
         <div> {{ character.gender }} {{ character.race }} {{ character.class}} </div>
         <div> Light Level: {{ character.lightLevel }}</div>
-        <div> Time Played: {{ character.hoursPlayedTotal }} H {{ character.minutesPlayedTotal}} M</div>
+        <div style="padding-bottom: 40px;"> Time Played: {{ character.hoursPlayedTotal }} H {{ character.minutesPlayedTotal}} M</div>
+        <div class="stats">
+            <span>Mobility: {{ character.stats.mobility }}</span>
+            <span>Resilience: {{ character.stats.resilience }}</span>
+            <span>Recovery: {{ character.stats.recovery }}</span>
+            <span>Discipline: {{ character.stats.discipline}}</span>
+            <span>Intellect: {{ character.stats.intellect }}</span>
+            <span>Strength: {{ character.stats.strength }}</span>
+        </div>
     </div>
 </div>
